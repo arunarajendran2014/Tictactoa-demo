@@ -7,20 +7,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Board {
 
-	private List<TurnRequest> turnRequestList;
+	private List<TurnRequest> board;
 
-	public List<TurnRequest> getTurnRequestList() {
-		return turnRequestList;
+	public List<TurnRequest> getBoard() {
+		return board;
 	}
 
-	public void setTurnRequestList(List<TurnRequest> turnRequestList) {
-		this.turnRequestList = turnRequestList;
+	public void setBoard(List<TurnRequest> board) {
+		this.board = board;
 	}
 
 	@Override
 	public String toString() {
-		return "Board [turnRequestList=" + turnRequestList + "]";
+		return "Board [board=" + board + "]";
 	}
+
+	
 	
 	
 	
