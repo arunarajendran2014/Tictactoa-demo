@@ -1,16 +1,21 @@
 package com.example.tictac.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BoardMapper {
 	
-	private Board board;
+	private Board boardMapper;
 
-	public Board getBoard() {
-		return board;
+	public Board getBoardMapper() {
+		return boardMapper;
 	}
 
-	public void setBoard(Board board) {
-		this.board = board;
+	public void setBoardMapper(Board boardMapper) {
+		this.boardMapper = boardMapper;
 	}
+
+	
 	
 	
 

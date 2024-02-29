@@ -3,7 +3,8 @@ package com.example.tictac.model;
 import java.util.List;
 
 import com.example.tictac.request.TurnRequest;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Board {
 
 	private List<TurnRequest> turnRequestList;

@@ -8,10 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TictactaoBoardMapper {
 	
-	public BoardMapper readData() {
+	public BoardMapper readData(String path) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			BoardMapper boardMapper = mapper.readValue(new File("/tictactao/src/test/java/com/example/resources/TictactaoBoardMapper.json"), BoardMapper.class);
+			BoardMapper boardMapper = mapper.readValue(new File(path), BoardMapper.class);
 			return boardMapper;
 		} catch (IOException e) {
 			e.printStackTrace();
