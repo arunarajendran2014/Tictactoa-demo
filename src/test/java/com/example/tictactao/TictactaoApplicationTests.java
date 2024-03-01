@@ -83,6 +83,16 @@ class TictactaoApplicationTests {
 				.contains("{\"player\":\"X\"},{\"player\":\"O\"}"));
 	}
 	
+	@Test
+	void getStateSuccessTest() throws Exception {
+		MvcResult result = mvc.perform(
+				get("/state").accept(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().isOk())
+				.andReturn();
+		Assertions.assertEquals(200, result.getResponse().getStatus());
+		
+	}
+	
 	
 	private String asJsonString(Object obj) {
 		try {
