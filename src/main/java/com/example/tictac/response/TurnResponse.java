@@ -5,15 +5,16 @@ import java.util.Map;
 import com.example.tictac.model.TictacPlayer;
 
 public class TurnResponse {
-    public Boolean gameOver = false;
-    public TictacPlayer winner;
-    public Map<String, String> state;
+    private Boolean gameOver = false;
+    private TictacPlayer winner;
+    private Map<String, String> state;
+    private String status;
 
     public TurnResponse(TictacPlayer winner, Map<String, String> state) {
         if(winner != null) {
             this.winner = winner;
             this.gameOver = true;
-	        System.out.println("Game is over !!, Winner is " + winner.getPlayer());
+	        this.status = "Game is over !!, Winner is " + winner.getPlayer();
         }
         this.state = state;
     }
@@ -34,5 +35,22 @@ public class TurnResponse {
         return state;
     }
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public TictacPlayer getWinner() {
+		return winner;
+	}
+
+	public void setWinner(TictacPlayer winner) {
+		this.winner = winner;
+	}
+
+    
 
 }

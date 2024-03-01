@@ -93,6 +93,31 @@ class TictactaoApplicationTests {
 		
 	}
 	
+	@Test
+	void tictactaoGameOverReturnSuccessResponse() throws Exception {
+		BoardMapper request =  tictactaoBoardMapper
+				.readData("src/test/java/com/example/resources/TictactaoBoardMapper.json");
+		MvcResult result = null;
+		String isGameOver = "\"gameOver\":false";
+		for(TurnRequest tr : request.getBoardMapper().getBoard()) {
+			if (isGameOver.contains("\"gameOver\":false")) {
+				String data = asJsonString(tr);
+				result = mvc
+						.perform(post("/turn").content(data)
+								.contentType(MediaType.APPLICATION_JSON_VALUE)
+								.accept(MediaType.APPLICATION_JSON_VALUE))
+						.andExpect(status().isOk())
+						.andExpect(jsonPath("$").isNotEmpty())
+						.andReturn();
+				isGameOver = result.getResponse().getContentAsString();
+			}
+		}
+		Assertions.assertTrue(result.getResponse().getContentAsString()
+				.contains("\"gameOver\":true"));
+		Assertions.assertTrue(result.getResponse().getContentAsString()
+				.contains("Game is over !!, Winner is X"));
+	}
+	
 	
 	private String asJsonString(Object obj) {
 		try {
