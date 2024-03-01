@@ -1,8 +1,11 @@
 package com.example.tictactao;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,6 +23,7 @@ import com.example.mapper.TurnRequestMapper;
 import com.example.tictac.controller.TictactaoController;
 import com.example.tictac.exception.PlayerNotFoundException;
 import com.example.tictac.model.BoardMapper;
+import com.example.tictac.model.TictacPlayer;
 import com.example.tictac.request.TurnRequest;
 import com.example.tictac.response.TurnResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -68,6 +72,16 @@ class TictactaoApplicationTests {
 
 	}
 	
+	@Test
+	void getPlayersSuccessTest() throws Exception {
+		MvcResult result = mvc.perform(
+				get("/players").accept(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().isOk())
+				.andReturn();
+		Assertions.assertEquals(200, result.getResponse().getStatus());
+		Assertions.assertTrue(result.getResponse().getContentAsString()
+				.contains("{\"player\":\"X\"},{\"player\":\"O\"}"));
+	}
 	
 	
 	private String asJsonString(Object obj) {
