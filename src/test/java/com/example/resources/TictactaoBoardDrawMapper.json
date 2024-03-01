@@ -1,0 +1,42 @@
+{
+  "boardMapper": {
+    "board": [
+      {
+        "playerId": "O",
+        "position": 0
+      },
+      {
+        "playerId": "X",
+        "position": 1
+      },
+      {
+        "playerId": "O",
+        "position": 2
+      },
+      {
+        "playerId": "X",
+        "position": 3
+      },
+      {
+        "playerId": "O",
+        "position": 4
+      },
+      {
+        "playerId": "X",
+        "position": 7
+      },
+      {
+        "playerId": "O",
+        "position": 5
+      },
+      {
+        "playerId": "X",
+        "position": 8
+      },
+      {
+        "playerId": "O",
+        "position": 6
+      }
+    ]
+  }
+}

@@ -14,7 +14,8 @@ public class TurnResponse {
         if(winner != null) {
             this.winner = winner;
             this.gameOver = true;
-	        this.status = "Game is over !!, Winner is " + winner.getPlayer();
+	        this.status = winner.getPlayer() != "Draw" ?
+	        		"Game is over !!, Winner is " + winner.getPlayer() : "Game is Draw !!";
         }
         this.state = state;
     }

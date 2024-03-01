@@ -70,7 +70,7 @@ public class TictactaoController {
                     gameService.endGame(true);
                     break;
                 case "draw":
-                    playerWinner = new TictacPlayer("draw");
+                    playerWinner = new TictacPlayer("Draw");
                     gameService.endGame(true);
                     break;
                 default:
