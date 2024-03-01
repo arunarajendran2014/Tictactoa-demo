@@ -1,20 +1,27 @@
 package com.example.tictactao;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.util.NestedServletException;
 
 import com.example.mapper.TictactaoBoardMapper;
 import com.example.mapper.TurnRequestMapper;
 import com.example.tictac.controller.TictactaoController;
+import com.example.tictac.exception.PlayerNotFoundException;
 import com.example.tictac.model.BoardMapper;
 import com.example.tictac.request.TurnRequest;
+import com.example.tictac.response.TurnResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,6 +33,7 @@ class TictactaoApplicationTests {
     private MockMvc mvc;
 	private static TictactaoBoardMapper tictactaoBoardMapper;
 	private static TurnRequestMapper turnRequestMapper;
+	
 	
 	@BeforeAll
 	public static void beforeAll () {
@@ -43,7 +51,25 @@ class TictactaoApplicationTests {
 				.andExpect(jsonPath("$.state").isNotEmpty());
 	}
 	
+	@Test
+	void playerNotFoundExceptionTest() throws Exception {
+		TurnRequest request = turnRequestMapper
+				.readData("src/test/java/com/example/resources/TurnRequestException.json");
+		String data = asJsonString(request);
 
+		NestedServletException thrown = Assertions.assertThrows(NestedServletException.class,
+				() -> mvc
+						.perform(post("/turn").content(data).contentType(MediaType.APPLICATION_JSON_VALUE)
+								.accept(MediaType.APPLICATION_JSON_VALUE))
+						.andExpect(status().isBadRequest()).andReturn(),
+				"Tictac player did not found");
+		Assertions.assertTrue(thrown.getMessage()
+				.contains("com.example.tictac.exception.PlayerNotFoundException: Tictac player did not found"));
+
+	}
+	
+	
+	
 	private String asJsonString(Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);

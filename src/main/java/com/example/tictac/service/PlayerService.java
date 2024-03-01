@@ -25,14 +25,14 @@ public class PlayerService {
 		
 	}
 	
-	 public TictacPlayer getPlayer(String player) throws PlayerNotFoundException {
+	 public TictacPlayer getPlayer(String player) throws RuntimeException {
 	        List<TictacPlayer> collect = players.stream()
 	                .filter(e -> e.getPlayer().equals(player))
 	                .collect(Collectors.toList());
 	        if (collect.size() > 0) {
 	            return collect.get(0);
 	        }
-			throw new PlayerNotFoundException("TictacPlayer" +player + "not foundplayer");
+			throw new PlayerNotFoundException("Tictac player did not found");
 	 }
 	
 
